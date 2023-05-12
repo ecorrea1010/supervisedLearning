@@ -1,0 +1,2 @@
+# supervisedLearning
+Supervised learning algorithms
