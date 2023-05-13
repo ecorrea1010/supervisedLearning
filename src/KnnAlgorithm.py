@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
 
 global data
@@ -20,7 +21,7 @@ def prepareData():
         'Tiredness'
     ]
     target = ['Infected']
-    independentTraining, independentTest, dependentTraining, dependentTest = train_test_split(data[features], data[target], random_state=0)
+    independentTraining, independentTest, dependentTraining, dependentTest = train_test_split(data[features], data[target], test_size=0.3, random_state=0)
     return {
         'independentTraining': independentTraining,
         'independentTest': independentTest,
@@ -29,7 +30,7 @@ def prepareData():
     }
 
 def model(dataModel):
-    knn = KNeighborsClassifier(n_neighbors=3)
+    knn = KNeighborsClassifier(n_neighbors=7)
     dependentTraining = np.ravel(dataModel['dependentTraining'])
     knn.fit(dataModel['independentTraining'], dependentTraining)
     prediction = knn.predict(dataModel['independentTest'])
